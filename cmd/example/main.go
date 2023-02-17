@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"strings"
 
 	"github.com/patrickhuber/shellhook"
 	"golang.org/x/exp/maps"
@@ -29,7 +28,6 @@ func main() {
 		fail(fmt.Errorf("invalid command %s, expected %+q", command, maps.Keys(commands)))
 	}
 
-	vars := env()
 	var err error
 
 	sh, err := shell(args)
@@ -39,6 +37,9 @@ func main() {
 
 	switch command {
 	case ExportCommand:
+		vars := map[string]string{
+			"SHELLHOOK": "TEST",
+		}
 		err = export(sh, vars)
 	case HookCommand:
 		err = hook(sh)
@@ -70,19 +71,6 @@ func export(sh shellhook.Shell, vars map[string]string) error {
 	result := sh.Export(vars)
 	fmt.Println(result)
 	return nil
-}
-
-func env() map[string]string {
-	result := map[string]string{}
-	for _, environ := range os.Environ() {
-		split := strings.SplitN(environ, "=", 2)
-
-		key := split[0]
-		value := split[1]
-
-		result[key] = value
-	}
-	return result
 }
 
 func shell(args []string) (shellhook.Shell, error) {

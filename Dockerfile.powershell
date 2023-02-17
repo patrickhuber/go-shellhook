@@ -1,0 +1,8 @@
+FROM golang:latest as build
+
+ADD . /src
+WORKDIR /src
+RUN mkdir -p dist && go build -o dist/example cmd/example/main.go 
+
+FROM ubuntu:latest 
+COPY --from=build /src/dist/example /app/example
