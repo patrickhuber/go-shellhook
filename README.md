@@ -4,6 +4,8 @@ shell hook library for go programs inspired by direnv
 
 ## usage
 
+get the latest version
+
 ```bash
-go get github.com/patrickhuber/shellhook
+go get -u github.com/patrickhuber/shellhook
 ```
