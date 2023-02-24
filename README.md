@@ -10,27 +10,4 @@ get the latest version
 go get -u github.com/patrickhuber/shellhook
 ```
 
-```go
-func run() error{
-  
-  executable, err := os.Executable()
-  if err != nil {
-    return err
-  }
-
-  result, err := shellhook.Hook(
-    sh, 
-    &shellhook.Metadata{
-		Executable: executable,
-		Name:       "test",
-		Args:       []string{"export", sh.Name()},
-    })
-  
-  if err != nil{
-    return err
-  }
-
-  fmt.Println(result)
-  return nil
-}
-```
+For a full example see the [example](cmd/example/README.md)
