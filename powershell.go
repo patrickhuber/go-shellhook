@@ -5,11 +5,11 @@ import (
 )
 
 const powershellTemplate = `
-global.__{{.Name}}OriginalPrompt=(Get-Item function:prompt).ScriptBlock
+$global:__{{.Name}}OriginalPrompt=(Get-Item function:prompt).ScriptBlock
 
 function global:prompt{
 	# export powershell environment variables
-	iex $({{.Executable}} {{.Args | join " " }})
+	iex $({{.Executable}} {{.Args | join " " }} | out-string)
 	$result = $global:__{{.Name}}OriginalPrompt.Invoke()
 	return $result
 }`
