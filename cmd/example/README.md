@@ -36,7 +36,7 @@ cp dist/example /app/
 ```powershell
 # from the root of the repo
 mkdir ./dist -Force
-mkdir -p /app
+mkdir /app -Force
 go build -o dist/example cmd/example/main.go
 copy dist/example /app/
 ```
