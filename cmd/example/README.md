@@ -15,7 +15,7 @@ docker build -f Dockerfile.powershell .
 > bash example
 
 ```
-docker build -f Dockerfile.bash
+docker build -f Dockerfile.bash .
 ```
 
 ## Build
