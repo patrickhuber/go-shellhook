@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/patrickhuber/shellhook"
+	"github.com/patrickhuber/go-shellhook"
 	"github.com/stretchr/testify/require"
 )
 

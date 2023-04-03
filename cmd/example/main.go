@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/patrickhuber/shellhook"
+	"github.com/patrickhuber/go-shellhook"
 	"golang.org/x/exp/maps"
 )
 

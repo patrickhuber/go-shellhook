@@ -1,4 +1,4 @@
-module github.com/patrickhuber/shellhook
+module github.com/patrickhuber/go-shellhook
 
 go 1.19
 
