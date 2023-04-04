@@ -17,6 +17,10 @@ if ! [[ "${PROMPT_COMMAND:-}" =~ _{{.Name}}_hook ]]; then
 fi
 `
 
+const (
+	Bash = "bash"
+)
+
 type bash struct{}
 
 func NewBash() Shell {
@@ -24,7 +28,7 @@ func NewBash() Shell {
 }
 
 func (sh bash) Name() string {
-	return "bash"
+	return Bash
 }
 
 // original https://github.com/direnv/direnv/blob/master/internal/cmd/shell_bash.go

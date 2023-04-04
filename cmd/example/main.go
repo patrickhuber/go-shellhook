@@ -11,9 +11,6 @@ import (
 const ExportCommand = "export"
 const HookCommand = "hook"
 
-const Powershell = "powershell"
-const Bash = "bash"
-
 func main() {
 	args := os.Args
 	commands := map[string]struct{}{
@@ -75,8 +72,8 @@ func export(sh shellhook.Shell, vars map[string]string) error {
 
 func shell(args []string) (shellhook.Shell, error) {
 	shells := map[string]struct{}{
-		Bash:       {},
-		Powershell: {},
+		shellhook.Bash:       {},
+		shellhook.Powershell: {},
 	}
 	if len(args) == 2 {
 		return nil, fmt.Errorf("missing shell parameter, expected %+q", maps.Keys(shells))
@@ -86,14 +83,15 @@ func shell(args []string) (shellhook.Shell, error) {
 		return nil, fmt.Errorf("invalid shell %s, expected %+q", shell, maps.Keys(shells))
 	}
 	switch shell {
-	case Powershell:
+	case shellhook.Powershell:
 		return shellhook.NewPowershell(), nil
-	case Bash:
+	case shellhook.Bash:
 		return shellhook.NewBash(), nil
 	default:
 		return nil, fmt.Errorf("invalid shell")
 	}
 }
+
 func fail(err error) {
 	fmt.Println(err.Error())
 	os.Exit(1)

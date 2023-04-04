@@ -14,6 +14,10 @@ function global:prompt{
 	return $result
 }`
 
+const (
+	Powershell = "powershell"
+)
+
 type powershell struct {
 }
 
@@ -22,7 +26,7 @@ func NewPowershell() Shell {
 }
 
 func (sh powershell) Name() string {
-	return "powershell"
+	return Powershell
 }
 
 func (sh powershell) Hook() (string, error) {
