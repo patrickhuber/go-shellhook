@@ -1,7 +1,11 @@
 package shellhook
 
-type Shell interface {
+type Namer interface {
 	Name() string
-	Hook() (string, error)
-	Export(vars map[string]string) string
+}
+
+type Shell interface {
+	Namer
+	Exporter
+	Hooker
 }

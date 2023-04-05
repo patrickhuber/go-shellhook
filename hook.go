@@ -7,6 +7,10 @@ import (
 	"github.com/Masterminds/sprig/v3"
 )
 
+type Hooker interface {
+	Hook() (string, error)
+}
+
 func Hook(shell Shell, metadata *Metadata) (string, error) {
 
 	hookString, err := shell.Hook()
