@@ -7,7 +7,7 @@ shell hook library for go programs inspired by direnv
 get the latest version
 
 ```bash
-go get -u github.com/patrickhuber/shellhook
+go get -u github.com/patrickhuber/go-shellhook
 ```
 
 For a full example see the [example](cmd/example/README.md)
