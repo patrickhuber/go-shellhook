@@ -13,6 +13,6 @@ func TestBashCanExport(t *testing.T) {
 		"TEST":  "VALUE",
 		"TEST2": "VALUE2",
 	})
-	expected := "export TEST=VALUE;\nexport TEST2=VALUE2;\n"
+	expected := "export TEST='VALUE';\nexport TEST2='VALUE2';\n"
 	require.Equal(t, expected, result)
 }

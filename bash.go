@@ -40,7 +40,7 @@ func (sh bash) Hook() (string, error) {
 func (sh bash) Export(vars map[string]string) string {
 	sb := strings.Builder{}
 	for k, v := range vars {
-		result := fmt.Sprintf("export %s=%s;", k, v)
+		result := fmt.Sprintf("export %s='%s';", k, v)
 		sb.WriteString(result)
 		sb.WriteString(fmt.Sprintln())
 	}
