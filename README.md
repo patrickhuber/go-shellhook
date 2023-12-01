@@ -11,3 +11,7 @@ go get -u github.com/patrickhuber/shellhook
 ```
 
 For a full example see the [example](cmd/example/README.md)
+
+## note
+
+This library executes in the shell prompt and does an export of variables in the current shell session. These shell variables will persist between commands. 

@@ -2,6 +2,7 @@ package shellhook
 
 import (
 	"fmt"
+	"strings"
 )
 
 const powershellTemplate = `
@@ -34,10 +35,11 @@ func (sh powershell) Hook() (string, error) {
 }
 
 func (sh powershell) Export(vars map[string]string) string {
-	results := ""
+	sb := strings.Builder{}
 	for k, v := range vars {
 		result := fmt.Sprintf(`$env:%s="%s";`, k, v)
-		results = fmt.Sprintln(result)
+		sb.WriteString(result)
+		sb.WriteString(fmt.Sprintln())
 	}
-	return results
+	return sb.String()
 }

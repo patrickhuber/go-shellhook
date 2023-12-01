@@ -2,6 +2,7 @@ package shellhook
 
 import (
 	"fmt"
+	"strings"
 )
 
 const bashTemplate = `
@@ -37,10 +38,11 @@ func (sh bash) Hook() (string, error) {
 }
 
 func (sh bash) Export(vars map[string]string) string {
-	results := ""
+	sb := strings.Builder{}
 	for k, v := range vars {
 		result := fmt.Sprintf("export %s=%s;", k, v)
-		results = fmt.Sprintln(result)
+		sb.WriteString(result)
+		sb.WriteString(fmt.Sprintln())
 	}
-	return results
+	return sb.String()
 }

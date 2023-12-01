@@ -1,7 +1,6 @@
 package shellhook_test
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/patrickhuber/go-shellhook"
@@ -11,7 +10,9 @@ import (
 func TestBashCanExport(t *testing.T) {
 	sh := shellhook.NewBash()
 	result := sh.Export(map[string]string{
-		"TEST": "VALUE",
+		"TEST":  "VALUE",
+		"TEST2": "VALUE2",
 	})
-	require.Equal(t, result, fmt.Sprintln("export TEST=VALUE;"))
+	expected := "export TEST=VALUE;\nexport TEST2=VALUE2;\n"
+	require.Equal(t, expected, result)
 }
