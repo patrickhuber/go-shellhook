@@ -8,4 +8,5 @@ type Shell interface {
 	Namer
 	Exporter
 	Hooker
+	Unsetter
 }

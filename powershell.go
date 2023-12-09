@@ -43,3 +43,13 @@ func (sh powershell) Export(vars map[string]string) string {
 	}
 	return sb.String()
 }
+
+func (sh powershell) Unset(vars []string) string {
+	sb := strings.Builder{}
+	for _, v := range vars {
+		result := fmt.Sprintf("Remove-Item Env:\\%s;", v)
+		sb.WriteString(result)
+		sb.WriteString(fmt.Sprintln())
+	}
+	return sb.String()
+}

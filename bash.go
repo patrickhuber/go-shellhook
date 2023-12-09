@@ -46,3 +46,13 @@ func (sh bash) Export(vars map[string]string) string {
 	}
 	return sb.String()
 }
+
+func (sh bash) Unset(vars []string) string {
+	sb := strings.Builder{}
+	for _, v := range vars {
+		result := fmt.Sprintf("unset %s;", v)
+		sb.WriteString(result)
+		sb.WriteString(fmt.Sprintln())
+	}
+	return sb.String()
+}

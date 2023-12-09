@@ -16,3 +16,10 @@ func TestPowershellCanExport(t *testing.T) {
 	expected := "$env:TEST=\"VALUE\";\n$env:TEST2=\"VALUE2\";\n"
 	require.Equal(t, expected, result)
 }
+
+func TestPowershellCanUnset(t *testing.T) {
+	sh := shellhook.NewPowershell()
+	actual := sh.Unset([]string{"ONE", "TWO"})
+	expected := "Remove-Item Env:\\ONE;\nRemove-Item Env:\\TWO;\n"
+	require.Equal(t, expected, actual)
+}

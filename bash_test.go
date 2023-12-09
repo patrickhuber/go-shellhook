@@ -16,3 +16,10 @@ func TestBashCanExport(t *testing.T) {
 	expected := "export TEST='VALUE';\nexport TEST2='VALUE2';\n"
 	require.Equal(t, expected, result)
 }
+
+func TestBashCanUnset(t *testing.T) {
+	sh := shellhook.NewBash()
+	actual := sh.Unset([]string{"ONE", "TWO"})
+	expected := "unset ONE;\nunset TWO;\n"
+	require.Equal(t, expected, actual)
+}
