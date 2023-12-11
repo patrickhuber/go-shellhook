@@ -2,6 +2,7 @@ package shellhook
 
 import (
 	"fmt"
+	"sort"
 	"strings"
 )
 
@@ -35,8 +36,18 @@ func (sh powershell) Hook() (string, error) {
 }
 
 func (sh powershell) Export(vars map[string]string) string {
+
 	sb := strings.Builder{}
-	for k, v := range vars {
+
+	// sort the keys for determinstic order
+	keys := make([]string, 0, len(vars))
+	for k := range vars {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+
+	for _, k := range keys {
+		v := vars[k]
 		result := fmt.Sprintf(`$env:%s="%s";`, k, v)
 		sb.WriteString(result)
 		sb.WriteString(fmt.Sprintln())

@@ -2,6 +2,7 @@ package shellhook
 
 import (
 	"fmt"
+	"sort"
 	"strings"
 )
 
@@ -39,7 +40,16 @@ func (sh bash) Hook() (string, error) {
 
 func (sh bash) Export(vars map[string]string) string {
 	sb := strings.Builder{}
-	for k, v := range vars {
+
+	// sort the keys for determinstic order
+	keys := make([]string, 0, len(vars))
+	for k := range vars {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+
+	for _, k := range keys {
+		v := vars[k]
 		result := fmt.Sprintf("export %s='%s';", k, v)
 		sb.WriteString(result)
 		sb.WriteString(fmt.Sprintln())
