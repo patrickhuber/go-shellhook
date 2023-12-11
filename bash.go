@@ -14,8 +14,12 @@ _{{.Name}}_hook(){
   trap - SIGINT;
   return $previous_exit_status;
 };
-if ! [[ "${PROMPT_COMMAND:-}" =~ _{{.Name}}_hook ]]; then
-  PROMPT_COMMAND="_{{.Name}}_hook${PROMPT_COMMAND:+;$PROMPT_COMMAND}"
+if ! [[ "${PROMPT_COMMAND[*]:-}" =~ _{{.Name}}_hook ]]; then
+  if [[ "$(declare -p PROMPT_COMMAND 2>&1)" == "declare -a"* ]]; then
+    PROMPT_COMMAND=(_{{.Name}}_hook "${PROMPT_COMMAND[@]}")
+  else
+    PROMPT_COMMAND="_{{.Name}}_hook${PROMPT_COMMAND:+;$PROMPT_COMMAND}"
+  fi
 fi
 `
 
