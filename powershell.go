@@ -2,8 +2,6 @@ package shellhook
 
 import (
 	"fmt"
-	"sort"
-	"strings"
 )
 
 const powershellTemplate = `
@@ -35,32 +33,10 @@ func (sh powershell) Hook() (string, error) {
 	return powershellTemplate, nil
 }
 
-func (sh powershell) Export(vars map[string]string) string {
-
-	sb := strings.Builder{}
-
-	// sort the keys for determinstic order
-	keys := make([]string, 0, len(vars))
-	for k := range vars {
-		keys = append(keys, k)
-	}
-	sort.Strings(keys)
-
-	for _, k := range keys {
-		v := vars[k]
-		result := fmt.Sprintf(`$env:%s="%s";`, k, v)
-		sb.WriteString(result)
-		sb.WriteString(fmt.Sprintln())
-	}
-	return sb.String()
+func (sh powershell) Export(key string, value string) string {
+	return fmt.Sprintf(`$env:%s="%s";`, key, value)
 }
 
-func (sh powershell) Unset(vars []string) string {
-	sb := strings.Builder{}
-	for _, v := range vars {
-		result := fmt.Sprintf("Remove-Item Env:\\%s;", v)
-		sb.WriteString(result)
-		sb.WriteString(fmt.Sprintln())
-	}
-	return sb.String()
+func (sh powershell) Unset(key string) string {
+	return fmt.Sprintf("Remove-Item Env:\\%s;", key)
 }

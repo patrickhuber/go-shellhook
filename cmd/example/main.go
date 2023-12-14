@@ -65,7 +65,7 @@ func hook(sh shellhook.Shell) error {
 }
 
 func export(sh shellhook.Shell, vars map[string]string) error {
-	result := sh.Export(vars)
+	result := shellhook.Export(sh, vars)
 	fmt.Println(result)
 	return nil
 }

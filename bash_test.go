@@ -9,7 +9,7 @@ import (
 
 func TestBashCanExport(t *testing.T) {
 	sh := shellhook.NewBash()
-	result := sh.Export(map[string]string{
+	result := shellhook.Export(sh, map[string]string{
 		"TEST":  "VALUE",
 		"TEST2": "VALUE2",
 	})
@@ -19,7 +19,7 @@ func TestBashCanExport(t *testing.T) {
 
 func TestBashCanUnset(t *testing.T) {
 	sh := shellhook.NewBash()
-	actual := sh.Unset([]string{"ONE", "TWO"})
+	actual := shellhook.Unset(sh, []string{"ONE", "TWO"})
 	expected := "unset ONE;\nunset TWO;\n"
 	require.Equal(t, expected, actual)
 }

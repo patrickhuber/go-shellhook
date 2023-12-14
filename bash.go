@@ -2,8 +2,6 @@ package shellhook
 
 import (
 	"fmt"
-	"sort"
-	"strings"
 )
 
 const bashTemplate = `
@@ -42,31 +40,10 @@ func (sh bash) Hook() (string, error) {
 	return bashTemplate, nil
 }
 
-func (sh bash) Export(vars map[string]string) string {
-	sb := strings.Builder{}
-
-	// sort the keys for determinstic order
-	keys := make([]string, 0, len(vars))
-	for k := range vars {
-		keys = append(keys, k)
-	}
-	sort.Strings(keys)
-
-	for _, k := range keys {
-		v := vars[k]
-		result := fmt.Sprintf("export %s='%s';", k, v)
-		sb.WriteString(result)
-		sb.WriteString(fmt.Sprintln())
-	}
-	return sb.String()
+func (sh bash) Export(key string, value string) string {
+	return fmt.Sprintf("export %s='%s';", key, value)
 }
 
-func (sh bash) Unset(vars []string) string {
-	sb := strings.Builder{}
-	for _, v := range vars {
-		result := fmt.Sprintf("unset %s;", v)
-		sb.WriteString(result)
-		sb.WriteString(fmt.Sprintln())
-	}
-	return sb.String()
+func (sh bash) Unset(key string) string {
+	return fmt.Sprintf("unset %s;", key)
 }

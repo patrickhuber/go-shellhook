@@ -9,7 +9,7 @@ import (
 
 func TestPowershellCanExport(t *testing.T) {
 	sh := shellhook.NewPowershell()
-	result := sh.Export(map[string]string{
+	result := shellhook.Export(sh, map[string]string{
 		"TEST":  "VALUE",
 		"TEST2": "VALUE2",
 	})
@@ -19,7 +19,7 @@ func TestPowershellCanExport(t *testing.T) {
 
 func TestPowershellCanUnset(t *testing.T) {
 	sh := shellhook.NewPowershell()
-	actual := sh.Unset([]string{"ONE", "TWO"})
+	actual := shellhook.Unset(sh, []string{"ONE", "TWO"})
 	expected := "Remove-Item Env:\\ONE;\nRemove-Item Env:\\TWO;\n"
 	require.Equal(t, expected, actual)
 }
